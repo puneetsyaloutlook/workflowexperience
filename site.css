@@ -22,7 +22,7 @@
 .nav-empty { padding: var(--space-sm-md) var(--space-md); font-size: var(--text-sm); }
 
 .site-layout { margin-inline-start: var(--layout-sidebar); padding-top: var(--layout-topbar); min-height: 100vh; }
-.site-main { max-width: var(--layout-content); margin-inline: auto; padding: var(--space-2xl) var(--space-xl) var(--space-3xl); display: grid; grid-template-columns: minmax(0, 1fr) 200px; column-gap: var(--space-xl); align-items: start; outline: none; }
+.site-main { max-width: var(--layout-content); margin-inline: 0; padding: var(--space-2xl) var(--space-xl) var(--space-3xl); display: grid; grid-template-columns: minmax(0, 1fr) 200px; column-gap: var(--space-xl); align-items: start; outline: none; }
 .site-main.no-toc { grid-template-columns: minmax(0, 1fr); }
 .page { min-width: 0; display: flex; flex-direction: column; gap: var(--space-xl); }
 
