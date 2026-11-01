@@ -1,6 +1,7 @@
 (function () {
   "use strict";
   var site = window.SITE;
+  var mainEl = document.getElementById("main");
   var treeEl = document.getElementById("nav-tree");
   var pageEl = document.getElementById("page");
   var tocEl = document.getElementById("toc");
@@ -10,7 +11,7 @@
   var themeBtn = document.getElementById("theme-btn");
 
   /* Index every page by its path. */
-  var pages = [];   // flat, in reading order
+  var pages = [];
   var byPath = {};
   function index(items, parentPath, parents) {
     items.forEach(function (it) {
@@ -32,16 +33,13 @@
   var openState = {};
   try { openState = JSON.parse(load("wx-nav-open") || "{}"); } catch (e) { openState = {}; }
 
-  var chevron = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-
   function buildList(items) {
     var ul = document.createElement("ul");
     ul.className = "nav-list";
     items.forEach(function (it) {
       if (it.section) {
         var h = document.createElement("li");
-        h.className = "nav-section";
-        h.setAttribute("role", "presentation");
+        h.className = "nav-label";
         h.textContent = it.section;
         ul.appendChild(h);
         return;
@@ -52,7 +50,6 @@
       var row = document.createElement("div");
       row.className = "nav-row";
       var a = document.createElement("a");
-      a.className = "nav-link";
       a.href = it.path;
       a.textContent = it.title;
       a.setAttribute("data-link", "");
@@ -63,7 +60,6 @@
         b.type = "button";
         b.setAttribute("aria-label", "Show or hide pages in " + it.title);
         b.setAttribute("aria-expanded", "false");
-        b.innerHTML = chevron;
         b.addEventListener("click", function () { toggle(li, !li.classList.contains("open")); });
         row.appendChild(b);
       }
@@ -86,7 +82,7 @@
 
   function syncNav(page) {
     var current = page ? page.path : null;
-    treeEl.querySelectorAll(".nav-link").forEach(function (a) {
+    treeEl.querySelectorAll("a").forEach(function (a) {
       if (a.getAttribute("href") === current) a.setAttribute("aria-current", "page");
       else a.removeAttribute("aria-current");
     });
@@ -111,15 +107,13 @@
       var show = !q || own || childHit || parentHit;
       li.hidden = !show;
       if (show) any = true;
-      if (q && (childHit || own) && li.querySelector(":scope > .nav-list")) {
-        li.classList.add("open");
-      }
+      if (q && (childHit || own) && li.querySelector(":scope > .nav-list")) li.classList.add("open");
     });
-    treeEl.querySelectorAll(".nav-section").forEach(function (s) { s.hidden = !!q; });
+    treeEl.querySelectorAll(".nav-label").forEach(function (s) { s.hidden = !!q; });
     if (q && !any) {
       var p = document.createElement("p");
       p.className = "nav-empty";
-      p.textContent = "No pages match.";
+      p.textContent = "No pages match. Try a shorter word.";
       treeEl.appendChild(p);
     }
     if (!q) syncNav(currentPage);
@@ -133,17 +127,18 @@
   }
 
   function cardList(items) {
-    return '<ul class="cards">' + items.map(function (c) {
-      return '<li><a class="card" href="' + c.path + '" data-link><span class="card-title">' + esc(c.title) +
-        '</span><span class="card-text">' + esc(c.summary) + '</span></a></li>';
+    return '<ul class="card-grid">' + items.map(function (c) {
+      return '<li><a class="pd-card pd-card--interactive" href="' + c.path + '" data-link><h3 class="pd-h3">' + esc(c.title) +
+        '</h3><p class="pd-help">' + esc(c.summary) + "</p></a></li>";
     }).join("") + "</ul>";
   }
 
   function renderHome() {
-    var html = '<h1 tabindex="-1">' + esc(site.name) + '</h1><p class="lead">' + esc(site.tagline) + "</p>";
+    var html = '<header class="pd-pagehead"><h1 class="pd-hero" tabindex="-1">' + esc(site.name) +
+      '</h1><p class="pd-deck">' + esc(site.tagline) + "</p></header>";
     var section = null, group = [];
     function flush() {
-      if (section && group.length) html += '<h2 class="home-section">' + esc(section) + "</h2>" + cardList(group);
+      if (section && group.length) html += "<section><h2 class=\"pd-h2 group-title\">" + esc(section) + "</h2>" + cardList(group) + "</section>";
       group = [];
     }
     site.nav.forEach(function (it) {
@@ -157,31 +152,34 @@
   function renderPage(p) {
     var crumbs = "";
     if (p.parents.length) {
-      crumbs = '<nav class="crumbs" aria-label="Breadcrumb"><a href="/" data-link>Home</a>' +
-        p.parents.map(function (a) { return '<span aria-hidden="true">/</span><a href="' + a.path + '" data-link>' + esc(a.title) + "</a>"; }).join("") +
+      crumbs = '<nav class="crumbs pd-caption" aria-label="Breadcrumb"><a href="/" data-link>Home</a>' +
+        p.parents.map(function (a) { return '<span class="sep" aria-hidden="true">/</span><a href="' + a.path + '" data-link>' + esc(a.title) + "</a>"; }).join("") +
         "</nav>";
     }
     var idx = pages.indexOf(p);
     var prev = pages[idx - 1], next = pages[idx + 1];
-    var pager = '<div class="pager">' +
-      (prev ? '<a class="prev" href="' + prev.path + '" data-link><small>Previous</small>' + esc(prev.title) + "</a>" : "") +
-      (next ? '<a class="next" href="' + next.path + '" data-link><small>Next</small>' + esc(next.title) + "</a>" : "") +
-      "</div>";
-    pageEl.innerHTML = crumbs + '<h1 tabindex="-1">' + esc(p.title) + '</h1><p class="lead">' + esc(p.summary) + "</p>" +
-      (p.body || "") + (p.children ? cardList(p.children) : "") + pager;
+    var pager = '<nav class="pager" aria-label="Previous and next pages">' +
+      (prev ? '<a class="pd-card pd-card--interactive prev" href="' + prev.path + '" data-link><span class="pd-kicker">Previous</span><span class="pd-h3">' + esc(prev.title) + "</span></a>" : "") +
+      (next ? '<a class="pd-card pd-card--interactive next" href="' + next.path + '" data-link><span class="pd-kicker">Next</span><span class="pd-h3">' + esc(next.title) + "</span></a>" : "") +
+      "</nav>";
+    pageEl.innerHTML = crumbs +
+      '<header class="pd-pagehead"><h1 class="pd-h1" tabindex="-1">' + esc(p.title) + '</h1><p class="pd-deck">' + esc(p.summary) + "</p></header>" +
+      (p.body ? '<div class="pd-prose">' + p.body + "</div>" : "") +
+      (p.children ? cardList(p.children) : "") + pager;
     document.title = p.title + " | " + site.name;
   }
 
   function buildToc() {
-    var heads = pageEl.querySelectorAll("h2:not(.home-section)");
-    if (!heads.length) { tocEl.hidden = true; tocEl.innerHTML = ""; return; }
-    var html = '<h2>On this page</h2><ul>';
+    var heads = pageEl.querySelectorAll(".pd-prose h2");
+    if (!heads.length) { tocEl.hidden = true; tocEl.innerHTML = ""; mainEl.classList.add("no-toc"); return; }
+    var html = "<h2>On this page</h2><ul>";
     heads.forEach(function (h, i) {
       if (!h.id) h.id = "s" + (i + 1);
       html += '<li><a href="#' + h.id + '">' + esc(h.textContent) + "</a></li>";
     });
     tocEl.innerHTML = html + "</ul>";
     tocEl.hidden = false;
+    mainEl.classList.remove("no-toc");
   }
 
   function route(focus) {
@@ -231,15 +229,19 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeNav(); });
 
   /* Theme */
+  function isDark() {
+    var attr = document.documentElement.getAttribute("data-theme");
+    return attr ? attr === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function syncThemeButton() { themeBtn.textContent = isDark() ? "Light mode" : "Dark mode"; }
   themeBtn.addEventListener("click", function () {
-    var root = document.documentElement;
-    var attr = root.getAttribute("data-theme");
-    var dark = attr ? attr === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var next = dark ? "light" : "dark";
-    root.setAttribute("data-theme", next);
+    var next = isDark() ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
     store("wx-theme", next);
+    syncThemeButton();
   });
 
   scrim.hidden = true;
+  syncThemeButton();
   route(false);
 })();

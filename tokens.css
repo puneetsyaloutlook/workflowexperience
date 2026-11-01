@@ -1,0 +1,117 @@
+/* Tokens from "Design system - default" (project/tokens.json). Colour, spacing, radius, shadow and layout. */
+:root {
+  --font-sans: "Public Sans", system-ui, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+
+  --neutral-900: #1A1A2E; --neutral-700: #3D3D50; --neutral-500: #8E8E9A; --neutral-300: #B8B8C2; --neutral-200: #D4D4DA; --neutral-100: #EDEDF0;
+  --warm-900: #6B5B2E; --warm-700: #B8963E; --warm-500: #D4C48A; --warm-300: #E8DDB8; --warm-200: #F0E8D4; --warm-100: #F5F0E6;
+  --teal-900: #1D6068; --teal-700: #3A8A8F; --teal-500: #5CB8B8; --teal-300: #9AD4D4; --teal-200: #C4E8E8; --teal-100: #E4F4F4;
+  --blue-900: #376DA4; --blue-700: #5A8DBE; --blue-500: #8DB8E3; --blue-300: #BCD5F3; --blue-200: #D8E8F8; --blue-100: #ECF2FA;
+
+  --primary: #479FA4;
+  --on-primary: var(--neutral-900);
+  --secondary: #C39A44;
+  --error: #D64545;
+  --text-inverse: #FFFFFF;
+  --surface-nav: var(--teal-900);
+
+  --surface-page: #FFFFFF;
+  --surface-quiet: #F4F4F7;
+  --surface-card: #FFFFFF;
+  --surface-overlay: #FFFFFF;
+  --border-default: #D4D4DA;
+  --border-strong: #B8B8C2;
+  --border-control: var(--neutral-500);
+  --scrim: rgba(26, 26, 46, 0.48);
+  --selection: var(--teal-200);
+  --rule: var(--teal-700);
+  --text-primary: #1A1A2E;
+  --text-secondary: #55556A;
+  --text-tertiary: #3D3D50;
+  --text-disabled: var(--neutral-300);
+  --action: #376DA4;
+  --on-action: #FFFFFF;
+  --action-soft: #ECF2FA;
+  --text-link: var(--action);
+  --focus: var(--action);
+  --mark: var(--teal-900);
+  --mark-soft: var(--teal-100);
+  --status-success: #219653;
+  --status-success-bg: rgba(111, 207, 151, 0.15);
+  --status-warning: var(--warm-900);
+  --status-warning-bg: rgba(255, 215, 112, 0.20);
+  --status-error: var(--error);
+  --status-error-bg: rgba(214, 69, 69, 0.10);
+  --status-info: #376DA4;
+  --status-info-bg: rgba(188, 213, 243, 0.30);
+
+  --space-xs: 4px; --space-sm: 8px; --space-sm-md: 12px; --space-md: 16px; --space-lg: 24px;
+  --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px; --space-4xl: 96px;
+  --radius-default: 6px; --radius-lg: 8px; --radius-pill: 9999px;
+  --shadow-subtle: 0 1px 2px rgba(16, 16, 32, 0.06), 0 1px 3px rgba(16, 16, 32, 0.08);
+  --shadow-raised: 0 2px 4px rgba(16, 16, 32, 0.06), 0 4px 8px rgba(16, 16, 32, 0.06);
+  --shadow-elevated: 0 2px 4px rgba(16, 16, 32, 0.06), 0 8px 24px rgba(16, 16, 32, 0.12);
+  --shadow-modal: 0 4px 8px rgba(16, 16, 32, 0.08), 0 24px 48px rgba(16, 16, 32, 0.18);
+
+  --layout-content: 1100px; --layout-measure: 62ch; --layout-control: 44px; --layout-touch: 44px;
+  --layout-topbar: 56px; --layout-sidebar: 240px; --layout-sidebar-collapsed: 64px; --layout-dialog: 520px;
+  --layout-icon-sm: 16px; --layout-icon-md: 20px; --layout-icon-lg: 24px;
+}
+
+:root[data-theme="dark"] {
+  --surface-page: #14141F;
+  --surface-quiet: #1B1B2A;
+  --surface-card: #1B1B2A;
+  --surface-overlay: #232338;
+  --border-default: #34344A;
+  --border-strong: #4C4C66;
+  --border-control: #6E6E88;
+  --scrim: rgba(0, 0, 0, 0.64);
+  --selection: #24505A;
+  --rule: var(--teal-500);
+  --text-primary: #EDEDF0;
+  --text-secondary: #A9A9B8;
+  --text-tertiary: #C9C9D4;
+  --text-disabled: #4C4C66;
+  --action: #8DB8E3;
+  --on-action: #14141F;
+  --action-soft: #222E43;
+  --mark: var(--teal-500);
+  --mark-soft: #1A3034;
+  --status-success: #6FCF97;
+  --status-warning: #FFD770;
+  --status-warning-bg: rgba(255, 215, 112, 0.15);
+  --status-error-bg: rgba(214, 69, 69, 0.18);
+  --status-info: #8DB8E3;
+  --status-info-bg: rgba(141, 184, 227, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --surface-page: #14141F;
+    --surface-quiet: #1B1B2A;
+    --surface-card: #1B1B2A;
+    --surface-overlay: #232338;
+    --border-default: #34344A;
+    --border-strong: #4C4C66;
+    --border-control: #6E6E88;
+    --scrim: rgba(0, 0, 0, 0.64);
+    --selection: #24505A;
+    --rule: var(--teal-500);
+    --text-primary: #EDEDF0;
+    --text-secondary: #A9A9B8;
+    --text-tertiary: #C9C9D4;
+    --text-disabled: #4C4C66;
+    --action: #8DB8E3;
+    --on-action: #14141F;
+    --action-soft: #222E43;
+    --mark: var(--teal-500);
+    --mark-soft: #1A3034;
+    --status-success: #6FCF97;
+    --status-warning: #FFD770;
+    --status-warning-bg: rgba(255, 215, 112, 0.15);
+    --status-error-bg: rgba(214, 69, 69, 0.18);
+    --status-info: #8DB8E3;
+    --status-info-bg: rgba(141, 184, 227, 0.18);
+  }
+}
