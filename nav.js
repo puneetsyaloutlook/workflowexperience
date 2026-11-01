@@ -19,9 +19,14 @@ window.SITE = {
           body: "<p>This design system covers WX only: principles, rules and reusable parts for designing the experience of a workflow. It does not cover how to build or train the systems. It does not cover process design or workforce design, which are separate disciplines that work in parallel with WX on the same product. It states what WX needs from each of them and what WX provides to each of them.</p>"
         },
         {
-          slug: "wx-process-design-and-workforce-design",
-          title: "WX, process design and workforce design",
-          summary: "How the three disciplines work in parallel on the same product."
+          slug: "wx-and-process-design",
+          title: "WX and process design",
+          summary: "What WX needs from process design, what it gives to process design and how the two disciplines work in parallel."
+        },
+        {
+          slug: "wx-and-workforce-design",
+          title: "WX and workforce design",
+          summary: "What WX needs from workforce design, what it gives to workforce design and how the two disciplines work in parallel."
         },
         {
           slug: "how-to-read",
@@ -30,8 +35,6 @@ window.SITE = {
         }
       ]
     },
-    { slug: "wx-and-process-design", title: "WX and process design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
-    { slug: "wx-and-workforce-design", title: "WX and workforce design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
     {
       slug: "key-concepts",
       title: "Key concepts",
