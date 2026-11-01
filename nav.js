@@ -30,13 +30,13 @@ window.SITE = {
         }
       ]
     },
+    { slug: "wx-and-process-design", title: "WX and process design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
+    { slug: "wx-and-workforce-design", title: "WX and workforce design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
     {
       slug: "key-concepts",
       title: "Key concepts",
       summary: "The ideas the rest of the design system depends on.",
       children: [
-        { slug: "wx-and-process-design", title: "WX and process design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
-        { slug: "wx-and-workforce-design", title: "WX and workforce design", summary: "Where the two disciplines are similar, where they differ and how they work together." },
         { slug: "human-factors", title: "Human factors", summary: "The eight aspects of a person's experience that the rules are built to protect." }
       ]
     },
