@@ -135,7 +135,9 @@ a { color: var(--accent); }
   display: flex; align-items: flex-start; gap: 2rem; min-height: 100vh;
 }
 main { flex: 1; min-width: 0; padding: 2.5rem 2rem 4rem 3rem; outline: none; }
-.page { max-width: 44rem; }
+.page { max-width: 72rem; }
+.page > p, .page > ul:not(.cards), .page > ol { max-width: 44rem; }
+.lead { max-width: 44rem; }
 .crumbs { font-size: .8125rem; color: var(--muted); margin: 0 0 1rem; }
 .crumbs a { color: var(--muted); text-decoration: none; }
 .crumbs a:hover { text-decoration: underline; }
