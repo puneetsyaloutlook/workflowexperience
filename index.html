@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workflow experience</title>
+  <meta name="description" content="Principles, rules and patterns for designing the experience of workflows in which the work is automated.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script>
+    try {
+      var t = localStorage.getItem("wx-theme");
+      if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menu-btn" aria-label="Open navigation" aria-expanded="false" aria-controls="sidenav">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M2 5h16M2 10h16M2 15h16" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+    </button>
+    <a class="brand" href="/" data-link>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Workflow experience</span>
+    </a>
+    <div class="topbar-spacer"></div>
+    <button class="icon-btn" id="theme-btn" aria-label="Switch colour theme">
+      <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5a7.5 7.5 0 1 0 7.5 7.5A5.8 5.8 0 0 1 10 2.5z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>
+    </button>
+  </header>
+
+  <div class="scrim" id="scrim" hidden></div>
+
+  <nav class="sidenav" id="sidenav" aria-label="Design system">
+    <div class="search">
+      <label class="visually-hidden" for="nav-search">Filter pages</label>
+      <input id="nav-search" type="search" placeholder="Filter pages" autocomplete="off">
+    </div>
+    <div id="nav-tree"></div>
+  </nav>
+
+  <div class="layout">
+    <main id="main" tabindex="-1">
+      <article class="page" id="page"></article>
+    </main>
+    <aside class="toc" id="toc" aria-label="On this page" hidden></aside>
+  </div>
+
+  <script src="/nav.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
