@@ -133,6 +133,14 @@
     }).join("") + "</ul>";
   }
 
+  function bulletList(items) {
+    return '<ul class="page-list">' + items.map(function (c) {
+      return '<li><a href="' + c.path + '" data-link>' + esc(c.title) + "</a>" +
+        (c.summary ? '<span class="page-list-summary"> ' + esc(c.summary) + "</span>" : "") +
+        (c.children ? bulletList(c.children) : "") + "</li>";
+    }).join("") + "</ul>";
+  }
+
   function renderHome() {
     var html = '<header class="pd-pagehead"><h1 class="pd-hero" tabindex="-1">' + esc(site.name) +
       '</h1><p class="pd-deck">' + esc(site.tagline) + "</p></header>";
@@ -165,7 +173,7 @@
     pageEl.innerHTML = crumbs +
       '<header class="pd-pagehead"><h1 class="pd-h1" tabindex="-1">' + esc(p.title) + '</h1><p class="pd-deck">' + esc(p.summary) + "</p></header>" +
       (p.body ? '<div class="pd-prose">' + p.body + "</div>" : "") +
-      (p.children ? cardList(p.children) : "") + pager;
+      (p.children ? bulletList(p.children) : "") + pager;
     document.title = p.title + " | " + site.name;
   }
 
